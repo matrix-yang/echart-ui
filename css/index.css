@@ -1,0 +1,14 @@
+.div-inline{ display:inline}
+#wai{ width:400px; border:2px solid #900; padding:10px; overflow:hidden}
+
+.divleft{ float:left; width:100px; border:1px solid #060}
+.divright{ float:right; width:280px; border:1px solid #00F}
+
+.right
+{
+    float:right;
+    width:300px;
+    background-color:#b0e0e6;
+}
+
+.left{ float:left;}
