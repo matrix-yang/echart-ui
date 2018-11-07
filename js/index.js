@@ -32,11 +32,17 @@ function init() {
 
 }
 
+function ts2dt(list) {
+    date.length=0
+    for (var i = 0; i < list.length; i++) {
+        var d = formatDateTime(timelist[i])
+        date.push(d)
+    }
+}
 
 
 
 function get_now_date() {
-
     data_now.push(12.5)
     var now = Date.parse(new Date())
     var d = formatDateTime(now)
