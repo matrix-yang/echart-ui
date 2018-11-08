@@ -28,7 +28,7 @@ var data_base_option = {
     xAxis: {
         type: 'category',
         boundaryGap: false,
-        data: date
+        data: date_base
     },
     yAxis: {
         type: 'value'

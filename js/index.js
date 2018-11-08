@@ -1,13 +1,13 @@
 var maxlist = [13.99, 14.08, 14.74, 10.32, 14.7, 12.05, 8.74, 14.33, 9.09, 14.3, 14.69, 9.09, 8.82, 8.31, 13.78]
 var avglist = [4.66, 7.14, 4.24, 5.33, 5.36, 5.8, 4.96, 6.76, 7.15, 6.06, 6.5, 4.77, 5.85, 5.79, 4.95]
 var minlist = [2.48, 3.92, 3.08, 2.04, 3.46, 3.94, 3.86, 2.97, 3.94, 2.37, 3.72, 3.29, 3.08, 3.67, 2.77]
-var timelist = [1541473948000, 1541473968000, 1541473988000, 1541474008000, 1541474028000,
-    1541474048000, 1541474068000, 1541474088000, 1541474108000, 1541474128000,
-    1541474148000, 1541474168000, 1541474188000, 1541474208000, 1541474228000]
+var timelist=["1541473948000","1541473968000","1541473988000","1541474008000","1541474028000",
+    "1541474048000","1541474068000","1541474088000","1541474108000","1541474128000",
+    "1541474148000","1541474168000","1541474188000","1541474208000","1541474228000"]
 
 var data_base_select=""
 
-var date = []
+var date_base = []
 
 var hms=[]
 
@@ -23,7 +23,7 @@ init()
 function init() {
     for (var i = 0; i < 15; i++) {
         var d = formatDateTime(timelist[i])
-        date.push(d)
+        date_base.push(d)
         var hhmmss= time2hms(timelist[i])
         hms.push(hhmmss)
     }
@@ -33,10 +33,11 @@ function init() {
 }
 
 function ts2dt(list) {
-    date.length=0
+    date_base.length=0
     for (var i = 0; i < list.length; i++) {
-        var d = formatDateTime(timelist[i])
-        date.push(d)
+        var d = formatDateTime(list[i])
+        console.log(list[i],d)
+        date_base.push(d)
     }
 }
 
@@ -47,8 +48,7 @@ function get_now_date() {
     var now = Date.parse(new Date())
     var d = formatDateTime(now)
     date_now.push(d)
-    console.log("now is",d)
-
+    //console.log("now is",d)
 }
 
 
@@ -67,7 +67,7 @@ function uuid() {
 }
 
 function formatDateTime(inputTime) {
-    var date = new Date(inputTime);
+    var date = new Date(Number(inputTime));
     var y = date.getFullYear();
     var m = date.getMonth() + 1;
     m = m < 10 ? ('0' + m) : m;
@@ -83,7 +83,7 @@ function formatDateTime(inputTime) {
 };
 
 function time2hms(inputTime) {
-    var date = new Date(inputTime);
+    var date = new Date(Number(inputTime));  //传入的string转number
     var y = date.getFullYear();
     var m = date.getMonth() + 1;
     m = m < 10 ? ('0' + m) : m;
