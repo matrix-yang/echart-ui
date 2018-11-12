@@ -1,13 +1,13 @@
 
 function get_base(type,start,end,interval) {
     var reqid = uuid();
-    var start1 =1541600000000          //测试完毕后删除
-    var end1=1541663526000
+    //var start1 =1541600000000          //测试完毕后删除
+    //var end1=1541663526000
     var paramer = {
         "reqId": reqid,
         "mertic": "electricity",//643602038
         "stationId": "1",
-        "deviceId": "643602038",//DEV100000000000
+        "deviceId": "643202613",//DEV100000000000
         "startTime": start,
         "endTime": end,
         "type": "max",      // 聚合方式，支持max、min、avg
@@ -80,10 +80,9 @@ function get_base(type,start,end,interval) {
 function get5min() {
     console.log("select value is ", get_base_select_value())
     var end = Date.parse(new Date()) - 30 * 1000;  //30秒前00
-    var start = end - 3*24*3600*1000;  //5分钟前
+    var start = end - 30*60*1000;  //5分钟前
     console.log(start,end,formatDateTime(start),formatDateTime(end))
     get_base("",start,end,20)
-    console.log("ts2dt------->",ts2dt(['1541618940000','1541618940000','1541618940000']))
 };
 
 function get1h() {

@@ -12,7 +12,7 @@ var data_base_option = {
         trigger: 'axis'
     },
     legend: {
-        data:['max','avg','min']
+        data: ['max', 'avg', 'min']
     },
     grid: {
         left: '3%',
@@ -27,30 +27,43 @@ var data_base_option = {
     },
     xAxis: {
         type: 'category',
-        boundaryGap: false,
+        //boundaryGap: false,
         data: date_base
     },
     yAxis: {
         type: 'value'
     },
     series: [
+
         {
-            name:'max',
-            type:'line',
-            stack: '总量',
-            data:maxlist
+            name: 'max',
+            type: 'line',
+            data: maxlist,
+            itemStyle: {
+                normal: {
+                    color: '#d14a61',
+                }
+            }
         },
         {
-            name:'avg',
-            type:'line',
-            stack: '总量',
-            data:avglist
+            name: 'avg',
+            type: 'bar',
+            data: avglist,
+            itemStyle: {
+                normal: {
+                    color: '#675bba'
+                }
+            }
         },
         {
-            name:'min',
-            type:'line',
-            stack: '总量',
-            data:minlist
+            name: 'min',
+            type: 'bar',
+            data: minlist,
+            itemStyle: {
+                normal: {
+                    color:'#5793f3',
+                }
+            }
         }
     ]
 };
