@@ -8,7 +8,7 @@ function get_base(type,start,end,interval) {
         "reqId": reqid,
         "mertic": base_select_value,//643602038
         "stationId": "1",
-        "deviceId": "643",//DEV100000000000
+        "deviceId": "600000000",//DEV100000000000
         "startTime": start,
         "endTime": end,
         "type": "max",      // 聚合方式，支持max、min、avg
@@ -83,7 +83,6 @@ function get_base(type,start,end,interval) {
     }, 1000);
 }
 function get5min() {
-    console.log("select value is ", get_base_select_value())
     var end = Date.parse(new Date()) - 30 * 1000;  //30秒前00
     var start = end - 5*60*1000;  //5分钟前
     console.log(start,end,formatDateTime(start),formatDateTime(end))
@@ -91,69 +90,17 @@ function get5min() {
 };
 
 function get1h() {
-    console.log("select value is ", get_base_select_value())
-    var reqid = uuid();
-    var end = Date.parse(new Date()) - 30 * 1000;  //30秒前
-    var start = end - 60 * 60 * 1000;  //5分钟前
-    var paramer = {
-        "reqId": reqid,
-        "mertic": "electricity",
-        "stationId": "1",
-        "deviceId": "DEV100000000000",
-        "startTime": start,
-        "endTime": end,
-        "type": "max",      // 聚合方式，支持max、min、avg
-        "decimal": 2,  // 小数格式
-        "interval": 2*60     // 若不传该key，则只取一个总的统计值
-    }
-
-    $.ajax({
-        url: stat_url,
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        // contentType: "application/json",
-        data: JSON.stringify(paramer),
-        dataType: "json",
-        success: function (result) {
-            console.log(result)
-        },
-        error: function (msg) {
-            console.log(msg)
-        }
-    })
+    var end = Date.parse(new Date()) - 30 * 1000;  //30秒前00
+    var start = end - 60*60*1000;  //5分钟前
+    console.log(start,end,formatDateTime(start),formatDateTime(end))
+    get_base("",start,end,120)
 };
 
 function get1d() {
-    console.log("select value is ", get_base_select_value())
-    var reqid = uuid();
-    var end = Date.parse(new Date()) - 30 * 1000;  //30秒前
-    var start = end - 24 * 60 * 60 * 1000;  //5分钟前
-    var paramer = {
-        "reqId": reqid,
-        "mertic": "electricity",
-        "stationId": "1",
-        "deviceId": "DEV100000000000",
-        "startTime": start,
-        "endTime": end,
-        "type": "max",      // 聚合方式，支持max、min、avg
-        "decimal": 2,  // 小数格式
-        "interval": 30*60     // 若不传该key，则只取一个总的统计值
-    }
-
-    $.ajax({
-        url: stat_url,
-        type: "POST",
-        contentType: "application/json;charset=utf-8",
-        // contentType: "application/json",
-        data: JSON.stringify(paramer),
-        dataType: "json",
-        success: function (result) {
-            console.log(result)
-        },
-        error: function (msg) {
-            console.log(msg)
-        }
-    })
+    var end = Date.parse(new Date()) - 30 * 1000;  //30秒前00
+    var start = end - 24*3600*1000;  //5分钟前
+    console.log(start,end,formatDateTime(start),formatDateTime(end))
+    get_base("",start,end,30*60)
 };
 
 function get1m() {
@@ -189,21 +136,21 @@ function get1m() {
     })
 };
 
-function init_now() {
+function refresh_new() {
     console.log("select value is ", get_base_select_value())
     var reqid = uuid();
     var end = Date.parse(new Date()) - 30 * 1000;  //30秒前
-    var start = end - 30 * 24 * 60 * 60 * 1000;  //5分钟前
+    var start = end -32* 1000;  //5分钟前
     var paramer = {
         "reqId": reqid,
-        "mertic": "electricity",
+        "mertic": "electricity",//643602038
         "stationId": "1",
-        "deviceId": "DEV100000000000",
+        "deviceId": "600000000",//DEV100000000000
         "startTime": start,
         "endTime": end,
-        "type": "max",      // 聚合方式，支持max、min、avg
+        "type": "avg",      // 聚合方式，支持max、min、avg
         "decimal": 2,  // 小数格式
-        "interval": 20     // 若不传该key，则只取一个总的统计值
+        //"interval": 2     // 若不传该key，则只取一个总的统计值
     }
 
     $.ajax({
@@ -214,10 +161,134 @@ function init_now() {
         data: JSON.stringify(paramer),
         dataType: "json",
         success: function (result) {
-            console.log(result)
+            /*oldlist.length=0
+            newlist.length=0
+            ts2dt(result.time)
+            maxlist.length = 0;
+            for (var i=0;i<result.time.length;i++){
+                maxlist.push(result.value[i])
+            }*/
+            newlist.push(result.value)
+            console.log('newlist.length+2>oldlist.length',newlist.length,oldlist.length)
+            if (newlist.length+17>oldlist.length){
+                refresh_old()
+            }
         },
         error: function (msg) {
             console.log(msg)
         }
     })
+
+}
+
+function refresh_old() {
+    var reqid = uuid();
+    var end = Date.parse(new Date()) - 30 * 1000;
+    var start = end - 60* 1000;
+    var paramer = {
+        "reqId": reqid,
+        "mertic": "electricity",//600000000602038
+        "stationId": "1",
+        "deviceId": "600000000",//DEV100000000000
+        "startTime": start,
+        "endTime": end,
+        "type": "avg",      // 聚合方式，支持max、min、avg
+        "decimal": 2,  // 小数格式
+        "interval": 2     // 若不传该key，则只取一个总的统计值
+    }
+
+    $.ajax({
+        url: stat_url,
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        // contentType: "application/json",
+        data: JSON.stringify(paramer),
+        dataType: "json",
+        success: function (result) {
+            /*oldlist.length=0
+            newlist.length=0
+            ts2dt(result.time)
+            maxlist.length = 0;
+            for (var i=0;i<result.time.length;i++){
+                maxlist.push(result.value[i])
+            }*/
+            //oldlist.length=0
+            //hms.length=0
+            for (var i=0;i<result.time.length;i++){
+                oldlist.push(result.value[i])
+            }
+            for (var i=0;i<result.time.length;i++){
+                hms.push(time2hms(result.time[i]))
+            }
+            console.log('init_compare',result)
+        },
+        error: function (msg) {
+            console.log(msg)
+        }
+    })
+}
+
+function init_compare(){
+    var reqid = uuid();
+    var end = Date.parse(new Date()) - 30 * 1000;
+    var start = end - 60* 1000;
+    var paramer = {
+        "reqId": reqid,
+        "mertic": "electricity",//600000000602038
+        "stationId": "1",
+        "deviceId": "600000000",//DEV100000000000
+        "startTime": start,
+        "endTime": end,
+        "type": "avg",      // 聚合方式，支持max、min、avg
+        "decimal": 2,  // 小数格式
+        "interval": 2     // 若不传该key，则只取一个总的统计值
+    }
+
+    $.ajax({
+        url: stat_url,
+        type: "POST",
+        contentType: "application/json;charset=utf-8",
+        // contentType: "application/json",
+        data: JSON.stringify(paramer),
+        dataType: "json",
+        success: function (result) {
+            /*oldlist.length=0
+            newlist.length=0
+            ts2dt(result.time)
+            maxlist.length = 0;
+            for (var i=0;i<result.time.length;i++){
+                maxlist.push(result.value[i])
+            }*/
+            //oldlist.length=0
+            //hms.length=0
+            for (var i=0;i<result.time.length;i++){
+                oldlist.push(result.value[i])
+            }
+            for (var i=0;i<result.time.length;i++){
+                hms.push(time2hms(result.time[i]))
+            }
+            console.log('init_compare',result)
+        },
+        error: function (msg) {
+            console.log(msg)
+        }
+    })
+}
+var ref = window.setInterval(function () {
+    refresh_new()
+}, 2000);
+
+init()
+
+function init() {
+    /*    for (var i = 0; i < 15; i++) {
+            var d = formatDateTime(timelist[i])
+            date_base.push(d)
+            var hhmmss= time2hms(timelist[i])
+            hms.push(hhmmss)
+        }
+
+        var ref = window.setInterval(get_now_date, 2000);*/
+    get5min()
+    //init_compare()
 }

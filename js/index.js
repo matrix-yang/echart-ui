@@ -15,25 +15,13 @@ var date_now = []
 
 var data_now = []
 
-var oldlist=[13.99, 14.08, 14.74, 10.32, 14.7, 12.05, 8.74, 14.33, 9.09, 14.3, 14.69, 9.09, 8.82, 8.31, 13.78]
-var newlist=[2.48, 3.92, 3.08, 2.04, 3.46, 3.94]
+var oldlist=[85.6,87.7,93.2,95.4,82.1,97.5,86.4,87.65,96.5,98.6,94.3,86.7,98.7,89.7,88.6]
+var newlist=[95.4,82.1,97.5,86.4,87.65,96.5]
 
 var stat_url='http://172.28.40.61:8010/service/stat'
 var query_url='http://172.28.40.61:8010/service/query'
 
-init()
 
-function init() {
-    for (var i = 0; i < 15; i++) {
-        var d = formatDateTime(timelist[i])
-        date_base.push(d)
-        var hhmmss= time2hms(timelist[i])
-        hms.push(hhmmss)
-    }
-
-    var ref = window.setInterval(get_now_date, 2000);
-
-}
 
 function ts2dt(list) {
     date_base.length=0

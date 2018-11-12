@@ -1,5 +1,5 @@
 // 基于准备好的dom，初始化echarts实例
-var data_now_chart = echarts.init(document.getElementById('data_now'));
+//var data_now_chart = echarts.init(document.getElementById('data_now'));
 
 console.log(maxlist)
 // 指定图表的配置项和数据

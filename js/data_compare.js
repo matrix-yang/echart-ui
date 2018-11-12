@@ -36,12 +36,22 @@ var data_compare_option = {
         {
             name:'昨日',
             type:'line',
-            data:oldlist
+            data:oldlist,
+            itemStyle: {
+                normal: {
+                    color: '#381aba'
+                }
+            }
         },
         {
             name:'今日',
             type:'line',
-            data:newlist
+            data:newlist,
+            itemStyle: {
+                normal: {
+                    color: '#ba1d23'
+                }
+            }
         }
     ]
 };
@@ -50,12 +60,12 @@ data_compare_chart.setOption(data_compare_option)
 
 // 使用刚指定的配置项和数据显示图表。
 var ref = window.setInterval(function () {
-    newlist.push(2+Math.random()*3)
+/*    newlist.push(2+Math.random()*3)
     if (newlist.length>=oldlist.length){
         oldlist.push(12+Math.random()*3)
         hms.push(121)
         console.log(hms.length,oldlist.length)
-    }
+    }*/
     data_compare_chart.setOption(
         {
             xAxis: {
@@ -63,16 +73,17 @@ var ref = window.setInterval(function () {
                 data: hms
             },
             series: [
+
+                {
+                    name:'今日',
+                    type:'line',
+                    data:newlist
+                },
                 {
                     name:'昨日',
                     type:'line',
                     data:oldlist
                 },
-                {
-                    name:'今日',
-                    type:'line',
-                    data:newlist
-                }
             ]
         }
     );
