@@ -29,6 +29,7 @@ var data_compare_option = {
         data: hms
     },
     yAxis: {
+        scale:true,
         type: 'value'
     },
     series: [
@@ -49,9 +50,18 @@ data_compare_chart.setOption(data_compare_option)
 
 // 使用刚指定的配置项和数据显示图表。
 var ref = window.setInterval(function () {
-    newlist.push(12.5)
+    newlist.push(2+Math.random()*3)
+    if (newlist.length>=oldlist.length){
+        oldlist.push(12+Math.random()*3)
+        hms.push(121)
+        console.log(hms.length,oldlist.length)
+    }
     data_compare_chart.setOption(
         {
+            xAxis: {
+                type: 'category',
+                data: hms
+            },
             series: [
                 {
                     name:'昨日',

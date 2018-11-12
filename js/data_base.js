@@ -31,6 +31,7 @@ var data_base_option = {
         data: date_base
     },
     yAxis: {
+        scale:true,
         type: 'value'
     },
     series: [

@@ -44,6 +44,7 @@ var data_now_option = {
 
 // 使用刚指定的配置项和数据显示图表。
 
+/*
 var ref = window.setInterval(function () {
     data_now_chart.setOption(data_now_option);
-}, 1000);
+}, 1000);*/
