@@ -3,9 +3,10 @@ function get_base(type,start,end,interval) {
     var reqid = uuid();
     //var start1 =1541600000000          //测试完毕后删除
     //var end1=1541663526000
+    var base_select_value=get_base_select_value()
     var paramer = {
         "reqId": reqid,
-        "mertic": "electricity",//643602038
+        "mertic": base_select_value,//643602038
         "stationId": "1",
         "deviceId": "643202613",//DEV100000000000
         "startTime": start,
@@ -70,12 +71,16 @@ function get_base(type,start,end,interval) {
                 avglist.push(result.value[i])
             }
 
-            data_base_chart.setOption(data_base_option);
+
         },
         error: function (msg) {
             console.log(msg)
         }
     })
+
+    var ref = window.setTimeout(function () {
+        data_base_chart.setOption(data_base_option);
+    }, 1000);
 }
 function get5min() {
     console.log("select value is ", get_base_select_value())

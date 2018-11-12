@@ -26,7 +26,6 @@ var data_compare_option = {
     },
     xAxis: {
         type: 'category',
-        boundaryGap: false,
         data: hms
     },
     yAxis: {
@@ -36,18 +35,35 @@ var data_compare_option = {
         {
             name:'昨日',
             type:'line',
-            stack: '总量',
-            data:maxlist
+            data:oldlist
         },
         {
             name:'今日',
             type:'line',
-            stack: '总量',
-            data:minlist
+            data:newlist
         }
     ]
 };
 
-// 使用刚指定的配置项和数据显示图表。
+data_compare_chart.setOption(data_compare_option)
 
-data_compare_chart.setOption(data_compare_option);
+// 使用刚指定的配置项和数据显示图表。
+var ref = window.setInterval(function () {
+    newlist.push(12.5)
+    data_compare_chart.setOption(
+        {
+            series: [
+                {
+                    name:'昨日',
+                    type:'line',
+                    data:oldlist
+                },
+                {
+                    name:'今日',
+                    type:'line',
+                    data:newlist
+                }
+            ]
+        }
+    );
+}, 1000);

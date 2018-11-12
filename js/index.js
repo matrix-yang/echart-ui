@@ -15,6 +15,9 @@ var date_now = []
 
 var data_now = []
 
+var oldlist=[13.99, 14.08, 14.74, 10.32, 14.7, 12.05, 8.74, 14.33, 9.09, 14.3, 14.69, 9.09, 8.82, 8.31, 13.78]
+var newlist=[2.48, 3.92, 3.08, 2.04, 3.46, 3.94]
+
 var stat_url='http://172.28.40.61:8010/service/stat'
 var query_url='http://172.28.40.61:8010/service/query'
 
