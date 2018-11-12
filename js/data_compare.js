@@ -39,7 +39,7 @@ var data_compare_option = {
             data:oldlist,
             itemStyle: {
                 normal: {
-                    color: '#381aba'
+                    color: '#ba0e0e'
                 }
             }
         },
@@ -49,7 +49,7 @@ var data_compare_option = {
             data:newlist,
             itemStyle: {
                 normal: {
-                    color: '#ba1d23'
+                    color: '#2eba1e'
                 }
             }
         }

@@ -148,13 +148,14 @@ function refresh_new() {
         "deviceId": "600000000",//DEV100000000000
         "startTime": start,
         "endTime": end,
-        "type": "avg",      // 聚合方式，支持max、min、avg
+        //"type": "avg",      // 聚合方式，支持max、min、avg
         "decimal": 2,  // 小数格式
         //"interval": 2     // 若不传该key，则只取一个总的统计值
     }
 
+
     $.ajax({
-        url: stat_url,
+        url: query_url,
         type: "POST",
         contentType: "application/json;charset=utf-8",
         // contentType: "application/json",
@@ -168,7 +169,8 @@ function refresh_new() {
             for (var i=0;i<result.time.length;i++){
                 maxlist.push(result.value[i])
             }*/
-            newlist.push(result.value)
+            console.log(result)
+            newlist.push(result.value[0])
             console.log('newlist.length+2>oldlist.length',newlist.length,oldlist.length)
             if (newlist.length+17>oldlist.length){
                 refresh_old()
