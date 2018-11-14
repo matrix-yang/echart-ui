@@ -95,3 +95,15 @@ function get_base_select_value() {
     return value
 }
 
+function get_merage_k() {
+    var klist=[]
+    for (var i=0;i<maxlist.length;i++){
+        var temp=[]
+        temp[0]=minlist[i]
+        temp[1]=maxlist[i]
+        temp[2]=minlist[i]
+        temp[3]=maxlist[i]
+        klist.push(temp)
+    }
+    return klist
+}

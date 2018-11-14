@@ -31,10 +31,12 @@ var data_base_option = {
         data: date_base
     },
     yAxis: {
-        scale:true,
-        type: 'value'
+        // scale:true,
+        type: 'value',
+        max: 120,
+        min: 30
     },
-    series: [
+    /*series: [
 
         {
             name: 'max',
@@ -66,7 +68,7 @@ var data_base_option = {
                 }
             }
         }
-    ]
+    ]*/
 };
 
 // 使用刚指定的配置项和数据显示图表。
